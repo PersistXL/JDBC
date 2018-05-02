@@ -1,5 +1,7 @@
 package com.persist.util;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +17,7 @@ import java.util.List;
  * 1.更新
  * 2.查询
  */
-
+@SuppressWarnings("ALL")
 public class BaseDao {
     //初始化参数
 
@@ -56,13 +58,13 @@ public class BaseDao {
      * 查询全部
      */
     public <T> List<T> query(String sql,Object[] paramValues,Class<T> clazz){
+        //对象
+        T t ;
+        //返回的集合
+        List<T> list = new ArrayList<>();
+        //获取连接
+        conn = JdbcUtil.getConnection();
         try {
-            //对象
-            T t = null;
-            //返回的集合
-            List<T> list = new ArrayList<>();
-            //获取连接
-            conn = JdbcUtil.getConnection();
             //创建pstmt对象
             pstmt = conn.prepareStatement(sql);
             //获取占位符的个数，并设置每个参数的值
@@ -89,7 +91,9 @@ public class BaseDao {
                     //获取每一列的列的名称，对应的值
                     Object values = rs.getObject(columenName);
                     //封装：设置到t对象的属性中
+                    BeanUtils.copyProperty(t, columenName, values);
                 }
+                list.add(t);
             }
             return list;
         } catch (Exception e) {

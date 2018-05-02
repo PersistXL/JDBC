@@ -25,13 +25,16 @@ public class JdbcUtil {
     static {
         try {
             //读取db.properties文件
+
             Properties props = new Properties();
+
             /**
              *  . 代表java命令运行的目录
              *  在java项目下，. java命令的运行目录从项目的根目录开始
              *  在web项目下，  . java命令的而运行目录从tomcat/bin目录开始
              *  所以不能使用点.
              */
+
             //FileInputStream in = new FileInputStream("./src/db.properties");          //若使用java项目时没有问题，若使用web项目时文件的路径就有问题
 
             /**
@@ -40,6 +43,7 @@ public class JdbcUtil {
              *     在java项目下，classpath的根目录从bin目录开始
              *     在web项目下，classpath的根目录从WEB-INF/classes目录开始
              */
+
             InputStream in = JdbcUtil.class.getResourceAsStream("/db.properties");
 
             //加载文件
