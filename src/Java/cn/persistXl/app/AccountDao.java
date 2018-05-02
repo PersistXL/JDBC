@@ -16,7 +16,6 @@ public class AccountDao {
     ResultSet rs = null;
 
     //转账，没有使用事物
-
     public void trans() {
 
         //准备sql
@@ -49,12 +48,13 @@ public class AccountDao {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            JdbcUtil.close(conn,pstmt,null);
+        } finally {
+            JdbcUtil.close(conn, pstmt, null);
         }
     }
+
     //使用事物
-    public void trans1(){
+    public void trans1() {
         //准备sql
         String sql_zs = "";
         String sql_ls = "";
@@ -94,11 +94,11 @@ public class AccountDao {
                 e1.printStackTrace();
             }
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 //所有操作执行成功，提交事物
                 conn.commit();
-                JdbcUtil.close(conn,pstmt,null);
+                JdbcUtil.close(conn, pstmt, null);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -163,8 +163,8 @@ public class AccountDao {
                 e1.printStackTrace();
             }
             e.printStackTrace();
-        }finally {
-            JdbcUtil.close(conn,pstmt,null);
+        } finally {
+            JdbcUtil.close(conn, pstmt, null);
         }
     }
 }
